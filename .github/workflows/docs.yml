@@ -1,0 +1,26 @@
+name: Documentation
+on:
+  push:
+    branches: [main, docs]
+jobs:
+  docs-build:
+    name: Build documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate C4 model
+        uses: university-of-york/generate-c4-model-action@1.0.0
+        with:
+          source-path: docs/model.c4
+          target-path: docs/images
+      - name: Commit images
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          add_options: -f
+          file_pattern: docs/images/*
+          skip_dirty_check: true
+          skip_checkout: true
+          commit_author: 'GitHub Actions <${{ github.actor }}+${{ github.job }}@users.noreply.github.com>'
+          commit_message: Updated GitHub Pages
+          branch: gh-pages
+          push_options: --force
