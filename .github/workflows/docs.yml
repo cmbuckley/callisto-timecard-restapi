@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Generate C4 model
-        uses: university-of-york/generate-c4-model-action@1.0.0
+        uses: cmbuckley/generate-c4-model-action@v1
         with:
           source-path: docs/model.c4
           target-path: docs/images
